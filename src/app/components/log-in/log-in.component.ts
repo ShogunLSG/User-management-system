@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class LogInComponent {
 
+  logUserIn() {
+    console.log("log user in");
+    //Add log in logic like authentification and redirect to home page
+  }
+
 }
