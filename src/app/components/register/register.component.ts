@@ -1,21 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { RegisterService } from './register.service';
+import { Component, OnInit,EventEmitter,Output } from '@angular/core';
+import { UserService } from 'src/app/Services/userServices/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  Roles: any = ['Admin', 'User'];
+  @Output() submitted = new EventEmitter<object>();
   user ={
-    id: null,
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     password: '',
-    role: 'user'
   }
-  constructor(private registerService: RegisterService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(){
   }
@@ -29,27 +26,16 @@ export class RegisterComponent implements OnInit {
     this.user.password = event.value;
   }
 
-  onFirstNameChange(event: any): void {
-    this.user.firstName = event.value;
-  }
-
-  onLastNameChange(event: any): void {
-    this.user.lastName = event.value;
+  onNameChange(event: any): void {
+    this.user.name = event.value;
   }
 
 
 
-
-  registerUser() {
-      console.log(this.user);
-    this.registerService.registerUser(this.user).subscribe(
-      (response) => {
-        console.log("response");
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  async onSubmit(event:any) {
+    event.preventDefault();
+    var response =this.userService.registerUser(this.user);
+    console.log("response" + response);
   }
 }
+

@@ -64,7 +64,8 @@
               "browserTarget": "user-management:build:production"
             },
             "development": {
-              "browserTarget": "user-management:build:development"
+              "browserTarget": "user-management:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
