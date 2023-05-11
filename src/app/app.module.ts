@@ -33,3 +33,4 @@ import { HttpClientModule } from '@angular/common/http';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
+

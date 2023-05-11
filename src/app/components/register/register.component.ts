@@ -1,5 +1,6 @@
 import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 import { UserService } from 'src/app/Services/userServices/user.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
     email: '',
     password: '',
   }
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(){
   }
@@ -30,12 +31,27 @@ export class RegisterComponent implements OnInit {
     this.user.name = event.value;
   }
 
-
-
-  async onSubmit(event:any) {
+  onSubmit(event:any): void {
     event.preventDefault();
-    var response =this.userService.registerUser(this.user);
-    console.log("response" + response);
+    this.userService.registerUser(this.user).subscribe(
+      (data) => {
+        var token = data['body']['token'];
+        var userId = data['body']['id'];
+        var role = data['body']['role'];
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('role', role);
+
+        this.router.navigate(['/userhome']);
+       console.log("response: ",data);
+
+        //redirect to home page
+      },
+      (error) => {
+        console.error(error);
+        // Handle the error
+      }
+    );
   }
 }
-

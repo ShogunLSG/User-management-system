@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { pipe, pluck } from 'rxjs';
 import { UserService } from 'src/app/Services/userServices/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -8,17 +10,43 @@ import { UserService } from 'src/app/Services/userServices/user.service';
 })
 export class LogInComponent {
 
-  constructor (private userService: UserService) {}
+  constructor (private userService: UserService, private router: Router) {}
 
-  userCredentails = {
+  userCredentials = {
     email: '',
     password: '',
   }
 
   logUserIn() {
-    console.log("log user in");
-    //Add log in logic like authentification and redirect to home page
-    this.userService.loginUser(this.userCredentails);
+    this.userService.loginUser(this.userCredentials).subscribe(
+      (data) => {
+        var token = data.token;
+        var userId = data.userId;
+        var role = data.role;
+        console.log("Token: ",token);
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('role', role);
+
+        this.router.navigate(['/userhome']);
+         //redirect to home page
+       },
+       (error) => {
+         console.error(error);
+         // Handle the error
+       }
+    );
   }
+  //Q: command to generate a component?
+
+
+  emailInput(event: any) {
+    this.userCredentials.email = event.target.value;
+  }
+
+  passwordInput(event: any) {
+    this.userCredentials.password = event.target.value;
+  }
+
 
 }
