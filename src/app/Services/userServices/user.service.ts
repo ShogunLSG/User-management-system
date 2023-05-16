@@ -19,8 +19,13 @@ export class UserService {
     return this.request.post(this.AUTH_URL + 'authenticate', userCredentails)
   };
 
-  getUsersForUser(): Observable<any> {
-    return this.request.get(this.USER_URL + 'users');
+  getUsersForUser(userRole: object): Observable<any> {
+    console.log('Fetching users for user');
+    console.log(userRole);
+    console.log(this.USER_URL + 'users');
+    return this.request.get(this.USER_URL + 'users', userRole);
   }
+
+
 }
 

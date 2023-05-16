@@ -1,11 +1,7 @@
-<router-outlet>
-<!-- Toolbar -->
-<mat-toolbar  color="primary" class="app-header">
-  <span class="nav-tool-items">
-    <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
-  </span>
-</mat-toolbar>
+<div>
+  <app-top-navbar *ngIf="true || true"></app-top-navbar>
+</div>
+<div>
   <router-outlet></router-outlet>
+</div>
 
-</router-outlet>

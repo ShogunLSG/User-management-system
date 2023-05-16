@@ -1,0 +1,24 @@
+
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <form class="example-form">
+      <mat-card-content>
+        <!-- all input components -->
+        <mat-form-field class="example-full-width">
+          <input type="text" matInput placeholder="Name" (input)="onNameChange($event.target)">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input type="email" matInput placeholder="Email" (input)="onEmailChange($event.target)">
+        </mat-form-field>
+        <mat-form-field >
+          <input type="password" matInput (input)="onPasswordChange($event.target)" placeholder="Password">
+        </mat-form-field>
+      </mat-card-content>
+      <button type="submit" mat-stroked-button color="accent" class="btn-block" (click)="onSubmit($event)">Register</button>
+    </form>
+  </mat-card>
+</div>

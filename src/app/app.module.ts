@@ -6,35 +6,21 @@ import { AngularMaterialModule } from './angular-material.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
-/* Components */
-import { LogInComponent } from './components/log-in/log-in.component';
-import { RegisterComponent } from './components/register/register.component';
-/* built in http client*/
+
 import { HttpClientModule } from '@angular/common/http';
-import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { UserService } from './Services/userServices/user.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
+import { PagesModule } from './pages/pages.module';
+import { ComponentsModule } from './components/components.module';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
-export function getAuthScheme(request: any) {
-  return 'Bearer ';
-}
-
-export function jwtOptionsFactory() {
-  return {
-    tokenGetter,
-    authScheme: getAuthScheme,
-  };
-}
-
 @NgModule({
   declarations: [
     AppComponent,
-    LogInComponent,
-    RegisterComponent,
-    LogInComponent
   ],
   imports: [
     BrowserModule,
@@ -43,18 +29,19 @@ export function jwtOptionsFactory() {
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    PagesModule,
+    ComponentsModule,
     FlexLayoutModule,
-    HttpClientModule, 
+    HttpClientModule,
     JwtModule.forRoot({
-      jwtOptionsProvider: {
-        provide: JWT_OPTIONS,
-        useFactory: jwtOptionsFactory,
-      },
-    }),
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:8080"],
+     },
+     }),
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 
