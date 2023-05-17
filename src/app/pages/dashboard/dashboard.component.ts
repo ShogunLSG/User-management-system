@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   constructor( private UserService: UserService) { }
   ngOnInit() {
     console.log("dashboard");
-    this.UserService.getUsersForUser({role: 'ADMIN'}).subscribe((data) => {
+    this.UserService.getUsersForUser({ role: 'admin' }).subscribe((data) => {
       console.log(data);
     });
   }
