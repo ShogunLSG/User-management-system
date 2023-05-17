@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -19,11 +19,11 @@ export class UserService {
     return this.request.post(this.AUTH_URL + 'authenticate', userCredentails)
   };
 
-  getUsersForUser(userRole: object): Observable<any> {
+  getUsersForUser(): Observable<any> {
     console.log('Fetching users for user');
-    console.log(userRole);
-    console.log(this.USER_URL + 'users');
-    return this.request.get(this.USER_URL + 'users', userRole);
+    return this.request.get(this.USER_URL + 'users');
+
+
   }
 
 
