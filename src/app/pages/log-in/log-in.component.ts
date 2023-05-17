@@ -23,22 +23,34 @@ export class LogInComponent {
 
     this.userService.loginUser(this.userCredentials).subscribe(
       (data) => {
-        var token = data.token;
-        var userId = data.userId;
-        var role = data.role;
-        console.log("Token: ",token);
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('role', role);
+       
 
-        this.router.navigate(['/dashboard']);
-        console.log("response: ",data);
-        console.log("user logged in");
-         //redirect to home page
-       },
-       (error) => {
-         console.error(error);
-         // Handle the error
+        if(data.token) {
+          var token = data.token;
+          var userId = data.userId;
+          var role = data.role;
+          console.log("Token: ",token);
+          localStorage.setItem('token', token);
+          localStorage.setItem('role', role);
+          //Admin & user have different dashboards
+          if(role == 'ADMIN') {
+            this.router.navigate(['dashboard/admin']);
+          }else if(role == 'USER') {
+            this.router.navigate(['dashboard/user']);
+          }else {
+            console.log("Role not found");
+          }
+
+          console.log("response: ",data);
+          console.log("user logged in");
+          alert("User logged in");
+           //redirect to home page
+        }else {
+          console.log("response: ",data);
+          console.log("user not logged in");
+          alert("User not logged in");
+        }
+       
        }
     );
   }

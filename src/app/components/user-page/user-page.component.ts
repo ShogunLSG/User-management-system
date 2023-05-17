@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-user-page',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent {
+  links = ['First', 'Second', 'Third'];
+  activeLink = this.links[0];
+  background: ThemePalette = undefined;
+
+ 
 
 }
