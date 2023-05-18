@@ -34,9 +34,9 @@ export class LogInComponent {
           localStorage.setItem('role', role);
           //Admin & user have different dashboards
           if(role == 'ADMIN') {
-            this.router.navigate(['dashboard/admin']);
+            this.router.navigate(['admin']);
           }else if(role == 'USER') {
-            this.router.navigate(['dashboard/user']);
+            this.router.navigate(['user']);
           }else {
             console.log("Role not found");
           }
