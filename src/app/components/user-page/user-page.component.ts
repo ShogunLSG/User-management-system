@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { UserService } from 'src/app/Services/userServices/user.service';
 import { userDetails } from '../admin-page/admin-page.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class UserPageComponent {
   background: ThemePalette = undefined;
   dataSource: userDetails[] = [];
 
-  constructor( private UserService: UserService) { }
+  constructor( private UserService: UserService,private router: Router) { }
   ngOnInit() {
     console.log("dashboard");
     this.UserService.getUsersForUser().subscribe((data: any) => {
@@ -24,5 +25,11 @@ export class UserPageComponent {
     });
 
   }
-  displayedColumns: string[] = ['id', 'name', 'email', 'role'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'role','edit'];
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
+
 }
