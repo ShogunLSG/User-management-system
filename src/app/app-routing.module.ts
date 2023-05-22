@@ -7,15 +7,25 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
 import { AuthGuardGuard } from './Services/authService/auth-guard.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { BaseDashboardComponent } from './pages/base-dashboard/base-dashboard.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', component: LogInComponent },
-  { path: 'register', component: RegisterComponent },
-  {path: 'admin' , component: AdminPageComponent,canActivate: [AuthGuardGuard]},
-  {path: 'user' , component: UserPageComponent, canActivate: [AuthGuardGuard]},
-  { path: 'profile', component: ProfileComponent},
-  { path: 'update-password', component: UpdatePasswordComponent}
+  { path: '', redirectTo: 'home/login', pathMatch: 'full' },
+  { path: 'home', component: HomePageComponent, children: [
+    { path: 'login', component: LogInComponent },
+    { path: 'register', component: RegisterComponent },
+  ] },
+
+  { path: 'dashboard', component: BaseDashboardComponent, canActivate: [AuthGuardGuard], children: [
+    { path: 'user', component: UserPageComponent, canActivate: [AuthGuardGuard] },
+    { path: 'admin', component: AdminPageComponent, canActivate: [AuthGuardGuard] },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardGuard] },
+    { path: 'update-password', component: UpdatePasswordComponent, canActivate: [AuthGuardGuard] },
+  ] },
+
+
 
 ];
 

@@ -5,17 +5,23 @@ import { LogInComponent } from './log-in/log-in.component';
 import { RegisterComponent } from './register/register.component';
 import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
+import { BaseDashboardComponent } from './base-dashboard/base-dashboard.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
     LogInComponent,
     RegisterComponent,
+    BaseDashboardComponent,
+    HomePageComponent,
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     ComponentsModule,
     RouterModule
-  ]
+  ],
+
+
 })
 export class PagesModule { }

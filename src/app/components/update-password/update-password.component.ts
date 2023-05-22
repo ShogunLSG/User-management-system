@@ -10,6 +10,8 @@ import { UserService } from 'src/app/Services/userServices/user.service';
 export class UpdatePasswordComponent {
   constructor(private router: Router, private userService: UserService) { }
 
+
+
   redirectToProfile(): void {
     this.router.navigate(['/profile']);
   }
@@ -20,26 +22,30 @@ export class UpdatePasswordComponent {
     this.router.navigate(['/login']);
   }
 
-  updatePassword($event: any) {
+  updatePassword() {
 
     if (this.newPassword === this.confirmPassword) {
       console.log("old password: ", this.oldPassword);
       console.log("new password: ", this.newPassword);
       console.log("confirm password: ", this.confirmPassword);
-      const id = parseInt(localStorage.getItem("id") || "");
+      const id = parseInt(localStorage.getItem("userId") || "");
       if (id != null) {
-        console.log("id: ", localStorage.getItem("id"));
         this.userService.updatePassword(id, this.newPassword).subscribe((data: any) => {
+          console.log("data: ", data);
 
-        }
-        );
-        //check if old password is correct*****************
+        },
+          (error: any) => {
+            console.log(error);
+            alert(error.error.message)
+          });
+        alert("password updated successfully");
+      }
 
- // display alert with message "password updated successfully"
+
+    }else{
+      // display alert with message "passwords do not match"
+      alert("passwords do not match");
     }
-
-
-  }
 }
   //Q:how to convert string to int
 

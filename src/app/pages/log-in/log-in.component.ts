@@ -24,7 +24,7 @@ export class LogInComponent {
 
     this.userService.loginUser(this.userCredentials).subscribe(
       (data) => {
-       
+
 
         if(data.token) {
           var token = data.token;
@@ -39,21 +39,21 @@ export class LogInComponent {
           localStorage.setItem('name', decodedToken.name);
           //Admin & user have different dashboards
           if(role == 'ADMIN') {
-            this.router.navigate(['admin']);
+            this.router.navigate(['dashboard/admin']);
           }else if(role == 'USER') {
-            this.router.navigate(['user']);
+            this.router.navigate(['dashboard/user']);
           }else {
             console.log("Role not found");
           }
 
-         
+
           alert("User logged in");
            //redirect to home page
         }else {
-          
+
           alert("User not logged in");
         }
-       
+
        }
     );
   }

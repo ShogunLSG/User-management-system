@@ -47,12 +47,6 @@ export class UserService {
       "id": id,
       "password": password
     });
-
-
-
-
-
-
-}
+  }
 }
 

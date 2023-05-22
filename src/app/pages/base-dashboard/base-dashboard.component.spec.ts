@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopNavbarComponent } from './top-navbar.component';
+import { BaseDashboardComponent } from './base-dashboard.component';
 
-describe('TopNavbarComponent', () => {
-  let component: TopNavbarComponent;
-  let fixture: ComponentFixture<TopNavbarComponent>;
+describe('BaseDashboardComponent', () => {
+  let component: BaseDashboardComponent;
+  let fixture: ComponentFixture<BaseDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopNavbarComponent ]
+      declarations: [ BaseDashboardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TopNavbarComponent);
+    fixture = TestBed.createComponent(BaseDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
