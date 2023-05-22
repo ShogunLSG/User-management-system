@@ -32,6 +32,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 const materialModules = [
@@ -67,6 +70,9 @@ const materialModules = [
   MatRadioModule,
   MatDatepickerModule,
   MatTooltipModule,
+  MatDialogModule,
+  MatSliderModule,
+  MatSlideToggleModule
 
 ];
 @NgModule({

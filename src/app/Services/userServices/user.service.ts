@@ -26,6 +26,32 @@ export class UserService {
 
   }
 
+  updateDetails(name: string, email: string, isAdmin: boolean,id: number): any {
+    console.log('updating details');
+    console.log("name: ", name);
+    console.log("email: ", email);
+    console.log("isAdmin: ", isAdmin);
+    console.log("id: ", id);
 
+    return this.request.post(this.USER_URL + 'updateDetails', {
+      "id": id,
+      "name": name,
+      "email": email,
+      
+    });
+  }
+
+  updatePassword(id: number,password: string): any {
+    this.request.post(this.USER_URL + 'updatePassword', {
+      "id": id,
+      "password": password
+    });
+
+
+
+  
+
+
+}
 }
 

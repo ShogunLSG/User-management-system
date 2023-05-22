@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { pipe, pluck } from 'rxjs';
 import { UserService } from 'src/app/Services/userServices/user.service';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-log-in',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LogInComponent {
 
-  constructor (private userService: UserService, private router: Router) {}
+  constructor (private userService: UserService, private router: Router,private jwtHelper: JwtHelperService) {}
 
   userCredentials = {
     email: '',
@@ -29,9 +30,13 @@ export class LogInComponent {
           var token = data.token;
           var userId = data.userId;
           var role = data.role;
-          console.log("Token: ",token);
+          var decodedToken = this.jwtHelper.decodeToken(token);
+          console.log(decodedToken);
           localStorage.setItem('token', token);
-          localStorage.setItem('role', role);
+          localStorage.setItem('role', decodedToken.role);
+          localStorage.setItem('userId', decodedToken.userId);
+          localStorage.setItem('email', decodedToken.sub);
+          localStorage.setItem('name', decodedToken.name);
           //Admin & user have different dashboards
           if(role == 'ADMIN') {
             this.router.navigate(['admin']);
@@ -41,13 +46,11 @@ export class LogInComponent {
             console.log("Role not found");
           }
 
-          console.log("response: ",data);
-          console.log("user logged in");
+         
           alert("User logged in");
            //redirect to home page
         }else {
-          console.log("response: ",data);
-          console.log("user not logged in");
+          
           alert("User not logged in");
         }
        

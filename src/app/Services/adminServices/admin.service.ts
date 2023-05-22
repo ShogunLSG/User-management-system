@@ -14,4 +14,34 @@ export class AdminService {
     console.log('Fetching users for admin');
     return this.request.get(this.ADMIN_URL + 'admins');
   }
+// *****/OPTIONAL
+  // checkEmail(email: string): any {
+  //   console.log('checking email');
+  //   return this.request.get(this.ADMIN_URL + 'checkEmail' + email);
+  // }
+  toggleLock(id: number, isLocked:boolean): any {
+    console.log('toggling lock');
+    return this.request.post(this.ADMIN_URL + 'toggleLock', {
+      "id": id,
+      "isLocked": isLocked
+    });
+  }
+
+  updateDetails(name: string, email: string, isAdmin: boolean,id: number): any {
+    console.log('updating details');
+    console.log("name: ", name);
+    console.log("email: ", email);
+    console.log("isAdmin: ", isAdmin);
+    console.log("id: ", id);
+
+    return this.request.post(this.ADMIN_URL + 'updateDetails', {
+      "id": id,
+      "name": name,
+      "email": email,
+      "isAdmin": isAdmin
+    });
+  }
+
+  
+
 }
