@@ -37,7 +37,8 @@ export class UserService {
       "id": id,
       "name": name,
       "email": email,
-      
+      "isAdmin": isAdmin
+
     });
   }
 
@@ -49,7 +50,7 @@ export class UserService {
 
 
 
-  
+
 
 
 }

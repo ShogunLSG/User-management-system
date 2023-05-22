@@ -20,27 +20,27 @@ export interface userDetails {
   styleUrls: ['./admin-page.component.css']
 })
 export class AdminPageComponent {
-  
+
   constructor( private AdminService: AdminService,
      private dialog: MatDialog,
      private router: Router
       ) { }
-  
+
   ngOnInit() {
-    
+
     console.log("dashboard");
     this.AdminService.getUsersForAdmin().subscribe((data: any) => {
       this.dataSource = data;
       console.log("data in for each: ", this.dataSource);
     });
-  
+
   }
-  
+
   redirectToProfile(): void {
     this.router.navigate(['/profile']);
   }
 
- 
+
 
   openDialog(row: any) {
     console.log("row: ", row);
@@ -50,7 +50,7 @@ export class AdminPageComponent {
   }
   });
   dialogRef.afterClosed().subscribe((data: any) => {
-  
+
     this.refreshData();
 
     console.log("data in for each: ", this.dataSource);
@@ -65,7 +65,7 @@ export class AdminPageComponent {
   }
 
 
- 
+
   dataResponse: userDetails[] = [];
   dataSource: userDetails[] = [];
 
@@ -74,7 +74,7 @@ export class AdminPageComponent {
     this.router.navigate(['/login']);
   }
 
-  
+
 
   changeLock(Event: any, id: number) {
 
@@ -92,17 +92,19 @@ export class AdminPageComponent {
         this.AdminService.toggleLock(id,Event.checked).subscribe((response: any) => {
           this.refreshData();
         });
-       
+
       }else {
         console.log("Event.checked: ", Event.checked);
         this.refreshData();
-        
+
       }
     });
 
 
   }
-    
-  
+  redirectToChangePassword(){
+    this.router.navigate(['update-password']);
+  }
+
   displayedColumns: string[] = ['id', 'name', 'role', 'email','edit','locked'];
 }

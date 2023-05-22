@@ -8,16 +8,17 @@ import { UserService } from 'src/app/Services/userServices/user.service';
   styleUrls: ['./update-details.component.css']
 })
 export class UpdateDetailsComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) { 
-    
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) {
+
     this.id = this.data.user.id;
   }
-  
+
   ngOnInit(): void {
     console.log("data in update details: ", this.data);
     if(this.data.user.role === "ADMIN") {
       this.isAdmin = true;
     }
+
 
 
   }
@@ -27,9 +28,12 @@ export class UpdateDetailsComponent {
   role: string = this.data.user.role;
   isAdmin: boolean = false;
   id: number;
+  currentRole: string = localStorage.getItem("role") || '';
+  currentIsAdmin: boolean = this.currentRole === "ADMIN" ? true : false;
 
-  
-  
+
+
+
 
   changeName(Event: any) {
     this.name = Event.target.value;
@@ -48,6 +52,7 @@ export class UpdateDetailsComponent {
     }
 
   saveChanges() {
+
     console.log("name: ", this.name);
     console.log("email: ", this.email);
     console.log("role: ", this.role);

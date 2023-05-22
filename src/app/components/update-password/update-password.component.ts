@@ -14,14 +14,14 @@ export class UpdatePasswordComponent {
     this.router.navigate(['/profile']);
   }
 
-  
+
   logOut() {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
 
   updatePassword($event: any) {
-    event?.preventDefault();
+
     if (this.newPassword === this.confirmPassword) {
       console.log("old password: ", this.oldPassword);
       console.log("new password: ", this.newPassword);
@@ -30,15 +30,15 @@ export class UpdatePasswordComponent {
       if (id != null) {
         console.log("id: ", localStorage.getItem("id"));
         this.userService.updatePassword(id, this.newPassword).subscribe((data: any) => {
-        
+
         }
         );
         //check if old password is correct*****************
-        
+
  // display alert with message "password updated successfully"
     }
 
-    
+
   }
 }
   //Q:how to convert string to int
