@@ -29,7 +29,7 @@ export class BaseDashboardComponent {
 
   logout() {
     localStorage.clear();
-    this.router.navigate(['login']);
+    this.router.navigate(['home/login']);
   }
 
   goToProfile(){
@@ -47,5 +47,12 @@ export class BaseDashboardComponent {
     this.router.navigate(['dashboard/update-password']);
   }
 
-
+  redirectToDashboard(){
+    var role = localStorage.getItem('role');
+    if(role == 'ADMIN'){
+      this.router.navigate(['dashboard/admin']);
+    }else{
+      this.router.navigate(['dashboard/user']);
+    }
+  }
 }

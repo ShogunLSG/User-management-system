@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/userServices/user.service';
+import { FormBuilder,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-update-password',
@@ -8,7 +9,20 @@ import { UserService } from 'src/app/Services/userServices/user.service';
   styleUrls: ['./update-password.component.css']
 })
 export class UpdatePasswordComponent {
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private fb: FormBuilder
+    ) { }
+
+  ngOninit() {}
+
+
+  updatePasswordForm = this.fb.group({
+    oldPassword: ['',Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern("^[a-zA-Z0-9!@#$%^&*]*$")],
+    newPassword: ['',Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern("^[a-zA-Z0-9!@#$%^&*]*$")],
+    confirmPassword: ['',Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern("^[a-zA-Z0-9!@#$%^&*]*$")],
+  });
 
 
 
@@ -23,22 +37,47 @@ export class UpdatePasswordComponent {
   }
 
   updatePassword() {
-
     if (this.newPassword === this.confirmPassword) {
       console.log("old password: ", this.oldPassword);
       console.log("new password: ", this.newPassword);
       console.log("confirm password: ", this.confirmPassword);
       const id = parseInt(localStorage.getItem("userId") || "");
       if (id != null) {
-        this.userService.updatePassword(id, this.newPassword).subscribe((data: any) => {
-          console.log("data: ", data);
 
-        },
-          (error: any) => {
-            console.log(error);
-            alert(error.error.message)
-          });
-        alert("password updated successfully");
+        var userOld =
+        {
+          "email": localStorage.getItem("email"),
+          "password": this.oldPassword
+        }
+
+
+
+        // this.userService.loginUser(userOld).subscribe((data: any) => {
+        //   console.log("data from response: ", data);
+
+        //   if (!data) {
+        //     alert("old password is incorrect");
+        //     return;
+        //   }
+        // });
+
+        console.log("old password is correct");
+        this.userService.updatePassword(id, this.newPassword).subscribe((data: any) => {
+          console.log("data from response: ", data);
+          if (data) {
+            alert("password updated successfully");
+            this.router.navigate(['/profile']);
+          }
+        },(error: any)=>{
+          if(error.status == 200){
+            alert("password updated successfully");
+            this.router.navigate(['dashboard/profile']);
+          }
+
+        });
+      }else{
+        alert("An issue occured while updating password. Please login again");
+        this.router.navigate(['/login']);
       }
 
 

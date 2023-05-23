@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {Component } from '@angular/core';
+import { MatDialog,} from '@angular/material/dialog';
 import { AdminService } from 'src/app/Services/adminServices/admin.service';
 import { UpdateDetailsComponent } from '../update-details/update-details.component';
 import { Router } from '@angular/router';
-import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
-import { elementAt } from 'rxjs';
+import { ConfirmationDialogComponent} from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
+
 
 export interface userDetails {
   id: number;

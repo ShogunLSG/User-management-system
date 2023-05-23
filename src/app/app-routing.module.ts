@@ -19,6 +19,7 @@ const routes: Routes = [
   ] },
 
   { path: 'dashboard', component: BaseDashboardComponent, canActivate: [AuthGuardGuard], children: [
+    { path: '', redirectTo: '/home/login', pathMatch: 'full' },
     { path: 'user', component: UserPageComponent, canActivate: [AuthGuardGuard] },
     { path: 'admin', component: AdminPageComponent, canActivate: [AuthGuardGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardGuard] },

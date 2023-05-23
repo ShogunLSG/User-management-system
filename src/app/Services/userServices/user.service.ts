@@ -43,7 +43,8 @@ export class UserService {
   }
 
   updatePassword(id: number,password: string): any {
-    this.request.post(this.USER_URL + 'updatePassword', {
+    console.log('updating password');
+    return this.request.post(this.USER_URL + 'updatePassword', {
       "id": id,
       "password": password
     });

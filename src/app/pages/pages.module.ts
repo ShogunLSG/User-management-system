@@ -7,6 +7,7 @@ import { ComponentsModule } from '../components/components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseDashboardComponent } from './base-dashboard/base-dashboard.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { HomePageComponent } from './home-page/home-page.component';
   imports: [
     CommonModule,
     AngularMaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
     ComponentsModule,
     RouterModule
   ],

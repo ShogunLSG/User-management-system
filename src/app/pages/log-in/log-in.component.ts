@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { pipe, pluck } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/Services/userServices/user.service';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-log-in',
@@ -11,42 +12,52 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class LogInComponent {
 
-  constructor (private userService: UserService, private router: Router,private jwtHelper: JwtHelperService) {}
+  constructor (private userService: UserService,
+    private router: Router,
+    private jwtHelper: JwtHelperService,
+    private fb: FormBuilder) {}
+  ngOnInit() {
+    localStorage.clear();
+  }
+
+  loginForm = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
   userCredentials = {
     email: '',
     password: '',
   }
 
+
   logUserIn(event: Event) {
     //prevent default for me
     event.preventDefault();
+    console.log("User credentials: ", this.loginForm.value);
 
     this.userService.loginUser(this.userCredentials).subscribe(
       (data) => {
 
 
         if(data.token) {
-          var token = data.token;
-          var userId = data.userId;
-          var role = data.role;
-          var decodedToken = this.jwtHelper.decodeToken(token);
-          console.log(decodedToken);
-          localStorage.setItem('token', token);
+
+          console
+          var decodedToken = this.jwtHelper.decodeToken(data.token);
+          console.log("Decoded token: "+ decodedToken);
+          localStorage.setItem('token', data.token);
           localStorage.setItem('role', decodedToken.role);
-          localStorage.setItem('userId', decodedToken.userId);
+          localStorage.setItem('userId', decodedToken.id);
           localStorage.setItem('email', decodedToken.sub);
           localStorage.setItem('name', decodedToken.name);
           //Admin & user have different dashboards
-          if(role == 'ADMIN') {
+          if(decodedToken.role == 'ADMIN') {
             this.router.navigate(['dashboard/admin']);
-          }else if(role == 'USER') {
+          }else if(decodedToken.role == 'USER') {
             this.router.navigate(['dashboard/user']);
           }else {
             console.log("Role not found");
           }
-
-
           alert("User logged in");
            //redirect to home page
         }else {
