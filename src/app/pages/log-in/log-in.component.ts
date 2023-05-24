@@ -32,11 +32,16 @@ export class LogInComponent {
 
 
   logUserIn(event: Event) {
+
+    var userCreds = {
+      email: this.loginForm.value.username,
+      password: this.loginForm.value.password,
+    }
     //prevent default for me
     event.preventDefault();
     console.log("User credentials: ", this.loginForm.value);
 
-    this.userService.loginUser(this.userCredentials).subscribe(
+    this.userService.loginUser(userCreds).subscribe(
       (data) => {
 
 

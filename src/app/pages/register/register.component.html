@@ -1,11 +1,10 @@
 
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-  <mat-card class="box">
-
+<div class="container" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="reg">
     <mat-card-header>
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
-    <form class="example-form" [formGroup]="registrationForm">
+    <form  class="regForm" [formGroup]="registrationForm">
       <mat-card-content>
         <!-- all input components -->
         <mat-form-field class="example-full-width">
@@ -18,7 +17,7 @@
           <input type="password" matInput formControlName="password">
         </mat-form-field>
         <mat-form-field >
-          <input matInput formControlName="phoneNumber">
+          <input matInput formControlName="phoneNumber" type="number">
         </mat-form-field>
       </mat-card-content>
       <button type="submit" mat-stroked-button color="accent" class="btn-block" (click)="onSubmit($event)">Register</button>

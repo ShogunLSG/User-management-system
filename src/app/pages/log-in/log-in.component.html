@@ -12,9 +12,8 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
-        <input matInput type="password" placeholder="Password" formControlName="password"  required formControlName="loginControl"
-        >
-        <mat-error>
+        <input matInput type="password" placeholder="Password" formControlName="password">
+        <mat-error *ngIf="">
           Please provide a valid password
         </mat-error>
       </mat-form-field>

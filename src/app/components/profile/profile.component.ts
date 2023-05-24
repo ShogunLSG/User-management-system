@@ -13,27 +13,43 @@ export class ProfileComponent {
     private userService: UserService,
     private router: Router,
     private fb: FormBuilder
-    ) { }
-  ngOnInit(): void {}
+    ) { 
+      this.userName = localStorage.getItem("name") || "";
+      this.email = localStorage.getItem("email") || "";
+      this.phonNumber = parseInt(localStorage.getItem("number") || "0");
+      this.id = parseInt(localStorage.getItem("userId") || "0");
+      
+      console.log("name: ", this.userName);
+      console.log("email: ", this.email);
+      console.log("number: ", this.phonNumber);
 
-  name: string = localStorage.getItem("name") || "";
-  email: string = localStorage.getItem("email") || "";
-  number: string = localStorage.getItem("number") || "";
-  editable: boolean = true;
+
+    }
+    ngOnInit(): void {
+      if (!localStorage.getItem('token')) {
+        this.router.navigate(['home/login']);
+      }
+  
+      this.profileForm.patchValue({
+        username: localStorage.getItem('name') || '',
+        useremail: localStorage.getItem('email') || '',
+        userphoneNumber: localStorage.getItem('number') || ''
+      });
+      this.formDisabled =true;
+
+     
+    }
+  id: number;
+  userName: string;
+  email: string;;
+  phonNumber: number;
+  formDisabled: boolean = false;
 
   profileForm = this.fb.group({
-    name: ['',Validators.required,Validators.minLength(3),Validators.pattern("^[a-zA-Z ]*$") ],
-    email: ['',Validators.required,Validators.email,Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")],
-    phoneNumber: ['',Validators.required,Validators.minLength(10),Validators.maxLength(10),Validators.pattern("^[0-9]*$")],
+    username: ['',Validators.required],
+    useremail: ['',Validators.required],
+    userphoneNumber: ['',Validators.required],
   });
-
-  changeName(Event: any) {
-    this.name = Event.target.value;
-  }
-
-  emailChange(Event: any) {
-    this.email = Event.target.value;
-  }
 
   goToProfile(){
     this.router.navigate(['profile']);
@@ -45,23 +61,65 @@ export class ProfileComponent {
 
 
   saveChanges() {
-    console.log("name: ", this.name);
+    console.log("name: ", this.userName);
     console.log("email: ", this.email);
-
+    this.userService.updateDetailsForUser(
+      this.profileForm.controls.username.value,
+      this.profileForm.controls.useremail.value,
+      this.id,
+      this.profileForm.controls.userphoneNumber.value
+      ).subscribe(
+      (data: any) => {
+        console.log("data: ",data);
+        if(data['body']['statusCodeValue'] == 200){
+          alert("Details updated successfully");
+        }
+      }),
+      (error: any) => {
+        // decode token and populate local storage
+        localStorage.setItem('name', this.userName);
+        localStorage.setItem('email', this.email);
+        localStorage.setItem('number', "yep");
+        alert("Details updated successfully");
+        this.formDisabled = true;
+        console.log("error: ",error);
+      }
+      this.formDisabled = true;
   }
+
+  deleteAccount() {
+    this.userService.deleteUser(this.id).subscribe(
+      (data: any) => {
+        console.log("data: ",data);
+        if(data['body']['statusCodeValue'] == 200){
+          alert("Account deleted successfully");
+          this.logout();
+        }
+        this.logout();
+      }),
+      (error: any) => {
+        // decode token and populate local storage
+        alert("Account deleted successfully");
+        this.logout();
+        console.log("error: ",error);
+      }
+  }
+    
+      
+
+  
+
+  
 
   logout() {
     localStorage.clear();
     this.router.navigate(['login']);
 
   }
-
-  numberChange(Event: any) {
-    this.number = Event.target.value;
-  }
+  
 
   enableEdit() {
-    this.editable = true;
+    this.formDisabled = false;
   }
 
 

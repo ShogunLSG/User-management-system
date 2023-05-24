@@ -10,19 +10,19 @@
           <div class="col-lg-6">
             <mat-form-field appearance="outline" >
                 <mat-label>First name</mat-label>
-                <input matInput placeholder="First name" formControlName="name" [value]="name">
+                <input matInput placeholder="First name" formControlName="username"[contentEditable]="false" [value]="userName" [disabled]="formDisabled">
             </mat-form-field>
           </div>
           <div class="col-lg-6">
             <mat-form-field appearance="outline" >
                 <mat-label>Email address</mat-label>
-                <input matInput type="email" formControlName="email" [value]="email">
+                <input matInput type="email" formControlName="useremail" [value]="email" [contentEditable]="!formDisabled" [disabled]="formDisabled">
             </mat-form-field>
           </div>
           <div class="col-lg-6">
             <mat-form-field appearance="outline" >
                 <mat-label>Phone Number</mat-label>
-                <input matInput type="email" formControlName="number" [value]="number">
+                <input matInput type="email" formControlName="userphonNumber" [value]="phonNumber" [contentEditable]="!formDisabled" [disabled]="formDisabled">
             </mat-form-field>
           </div>
       </div>
@@ -33,12 +33,16 @@
     </mat-card-content>
     <span class="form-actions">
       <mat-card-actions align="end">
-        <button [disabled]="true" mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+        <button [disabled]="!formDisabled" mat-icon-button color="primary" (click)="enableEdit()" aria-label="Example icon button with a home icon">
           <mat-icon>edit</mat-icon>
         </button>
       </mat-card-actions>
       <mat-card-actions align="end">
-        <button mat-raised-button color="primary" (click)="saveChanges()" [disabled]="!editable">Save Changes</button>
+        <button mat-raised-button color="primary" (click)="saveChanges()" [disabled]="formDisabled">Save Changes</button>
+      </mat-card-actions>
+
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="deleteAccount()" [disabled]="formDisabled">Delete Account</button>
       </mat-card-actions>
     </span>
   </mat-card>

@@ -24,7 +24,9 @@ export class AdminPageComponent {
   constructor( private AdminService: AdminService,
      private dialog: MatDialog,
      private router: Router
-      ) { }
+      ) { 
+        
+      }
 
   ngOnInit() {
 
@@ -106,5 +108,34 @@ export class AdminPageComponent {
     this.router.navigate(['update-password']);
   }
 
-  displayedColumns: string[] = ['id', 'name', 'role', 'email','edit','locked'];
+  deleteUser(id: number){
+    console.log("Event: ", Event);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: "Confirmation",
+        message: "Are you sure you want to delete this user?"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if(data) {
+        console.log("Event.checked: ", data);
+        this.AdminService.deleteUser(id).subscribe((response: any) => {
+        }, (error: any) => {
+          console.log("error: ", Response);
+          if(error.status == 200){
+            this.refreshData();
+          }
+        });
+        this.refreshData();
+
+      }else {
+        console.log("Event.checked: ", data);
+        this.refreshData();
+
+      }
+    });
+  }
+
+  displayedColumns: string[] = ['id', 'name', 'role', 'email','edit','locked','delete'];
 }

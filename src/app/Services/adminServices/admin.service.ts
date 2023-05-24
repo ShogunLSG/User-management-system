@@ -27,6 +27,11 @@ export class AdminService {
     });
   }
 
+  deleteUser(id: number): any {
+    console.log('deleting user');
+    return this.request.delete(this.ADMIN_URL + 'deleteUser/' + id);
+  }
+
   updateDetails(name: string, email: string, isAdmin: boolean,id: number): any {
     console.log('updating details');
     console.log("name: ", name);

@@ -2,6 +2,7 @@ import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 import { UserService } from 'src/app/Services/userServices/user.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,8 @@ export class RegisterComponent implements OnInit {
   user: Record<string, any> = {};
   constructor(private userService: UserService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private jwtHelper: JwtHelperService,
     ) { }
 
   ngOnInit(){
@@ -22,35 +24,43 @@ export class RegisterComponent implements OnInit {
   }
 
   registrationForm = this.fb.group({
-    name: ['',Validators.required,Validators.pattern("^[a-zA-Z ]*$")],
-    email: ['',Validators.required,Validators.email,Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")],
-    password: ['',Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$")],
-    phoneNumber: ['',Validators.required,
-    Validators.minLength(10),
-    Validators.maxLength(10),
-    Validators.pattern("^[0-9]*$")],
+    name: ['',Validators.required],
+    email: ['',Validators.required,
+    Validators.email,
+    ],
+    password: ['',Validators.required,
+    ],
+    phoneNumber: ['',Validators.required]
   });
 
   onSubmit(event:any): void {
     event.preventDefault();
-    this.user["phoneNumber"] = this.registrationForm.value.phoneNumber;
-    this.user["email"] = this.registrationForm.value.email;
-    this.user["name"] = this.registrationForm.value.name;
-    this.user["password"] = this.registrationForm.value.password;
+    var userCreds = {
+      email: this.registrationForm.value.email,
+      password: this.registrationForm.value.password,
+      name: this.registrationForm.value.name,
+      phoneNumber: this.registrationForm.value.phoneNumber
+    }
 
-    this.userService.registerUser(this.user).subscribe(
+    this.userService.registerUser(userCreds).subscribe(
       (data) => {
-        var token = data['body']['token'];
-        var userId = data['body']['id'];
-        var role = data['body']['role'];
+        var decodedToken = this.jwtHelper.decodeToken(data['body']['token']);
+        var token = decodedToken['token'];
+        var role = decodedToken['role'];
+        var id = decodedToken['id'];
+        var email = decodedToken['sub'];
+        var name = decodedToken['name'];
+        var phoneNumber = decodedToken['phoneNumber'];
 
         // basic login logic
         console.log("data: ",data);
         if(data['body']['statusCodeValue'] == 200){
           localStorage.setItem('token', token);
-          localStorage.setItem('userId', userId);
           localStorage.setItem('role', role);
-          this.router.navigate(['/user-home']);
+          localStorage.setItem('userId', id);
+          localStorage.setItem('email', email);
+          localStorage.setItem('name', name);
+          localStorage.setItem('phoneNumber', phoneNumber);
         }
 
         alert(data['body']);

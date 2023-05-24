@@ -26,6 +26,7 @@ export class UserService {
 
   }
 
+  // ********** Move this to admin service **********
   updateDetails(name: string, email: string, isAdmin: boolean,id: number): any {
     console.log('updating details');
     console.log("name: ", name);
@@ -41,6 +42,22 @@ export class UserService {
 
     });
   }
+
+  updateDetailsForUser(name: any, email:any, id: any, phone:any): any {
+    return this.request.post(this.USER_URL + 'updateMyDetails',{
+      "id": id,
+      "name": name,
+      "email": email,
+      "phone": phone
+
+    });
+  }
+
+  deleteUser(id: number): any {
+    console.log('deleting user');
+    return this.request.delete(this.USER_URL + 'deleteUser/' + id);
+  }
+      
 
   updatePassword(id: number,password: string): any {
     console.log('updating password');
