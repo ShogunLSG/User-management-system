@@ -1,77 +1,47 @@
 
-.app-header {
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
-}
+  .container {
+    height: 100vh; /* Set container height to full viewport height */
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+  }
 
-/* .box {
-  position: relative;
-  top: 0;
-  opacity: 1;
-  float: left;
-  padding: 60px 50px 40px 50px;
-  width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  z-index: 5;
-  max-width: 330px;
-} */
-/* .box.back {
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
-  top: -20px;
-  opacity: .8;
-  z-index: -1;
-}
-.box:before {
-  content: "";
-  width: 100%;
-  height: 30px;
-  border-radius: 10px;
-  position: absolute;
-  top: -10px;
-  background: rgba(255, 255, 255, .6);
-  left: 0;
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
-  z-index: -1;
-} */
+  .row {
+    width: 100%; /* Set row width to fill the container */
 
-router-outlet {
-  /*Center the card*/
-  margin: auto;
-}
+  }
+
+  .col-12 {
+    display: flex; /* Enable flexbox layout */
+    flex-direction: column; /* Arrange items vertically */
+    justify-content: center; /* Center items horizontally */
+
+    align-items: center; /* Center items vertically */
+  }
+
+  .app-header {
+    justify-content: space-between; /* Distribute items evenly along the toolbar */
+     /* Center items vertically */
+    margin: 0 0 1em 0; /* Add some space below the header */
+    margin-top: 0%;
+    align-items: center;
+  }
+
+  .router-container {
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    background-color: rgb(75, 75, 75);
+  }
+  .app-holder{
+    background-color: rgb(80, 80, 80);
+    margin: 0 0 1em 0; /* Add some space below the header */
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+  }
+  h2{
+    align-self: center;
+  }
 
 
-
-div.container {
-  /*Center the card*/
-  margin-top: 150px;
-  border: 3px solid #8900be;
-  padding: 10px;
-  width:fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  align-items: center;
-
-}
-
-.box{
-  /*Center the card*/
-  margin:auto;
-  width: 50%;
-  border: 3px solid #580081;
-  padding: 10px;
-  height: 100%;
-  align-items: center
-}

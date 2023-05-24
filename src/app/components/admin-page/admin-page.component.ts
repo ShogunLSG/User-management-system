@@ -24,8 +24,8 @@ export class AdminPageComponent {
   constructor( private AdminService: AdminService,
      private dialog: MatDialog,
      private router: Router
-      ) { 
-        
+      ) {
+
       }
 
   ngOnInit() {
@@ -137,5 +137,5 @@ export class AdminPageComponent {
     });
   }
 
-  displayedColumns: string[] = ['id', 'name', 'role', 'email','edit','locked','delete'];
+  displayedColumns: string[] = ['id', 'name', 'role', 'email','phone','edit','locked','delete'];
 }

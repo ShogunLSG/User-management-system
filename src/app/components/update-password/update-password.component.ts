@@ -19,7 +19,7 @@ export class UpdatePasswordComponent {
 
 
   updatePasswordForm = this.fb.group({
-    oldPassword: ['',Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern("^[a-zA-Z0-9!@#$%^&*]*$")],
+    // oldPassword: ['',Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern("^[a-zA-Z0-9!@#$%^&*]*$")],
     newPassword: ['',Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern("^[a-zA-Z0-9!@#$%^&*]*$")],
     confirmPassword: ['',Validators.required,Validators.minLength(8),Validators.maxLength(16),Validators.pattern("^[a-zA-Z0-9!@#$%^&*]*$")],
   });
@@ -71,7 +71,6 @@ export class UpdatePasswordComponent {
         },(error: any)=>{
           if(error.status == 200){
             alert("password updated successfully");
-            this.router.navigate(['dashboard/profile']);
           }
 
         });

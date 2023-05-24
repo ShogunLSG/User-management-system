@@ -10,3 +10,11 @@ mat-menu.mat-menu-panel {
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+}

@@ -27,7 +27,7 @@ export class UserPageComponent {
     });
 
   }
-  displayedColumns: string[] = ['id', 'name', 'email', 'role'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'phone','role'];
 
   logout() {
     localStorage.clear();
